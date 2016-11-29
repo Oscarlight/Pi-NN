@@ -14,8 +14,8 @@ yminorLocator = AutoMinorLocator()
 # ANN model
 dmm = make_dmm('../model/', 2) # num. of layers
 # original data
-fTrain = 'original_data/pTrain'
-fTest = 'original_data/pTest'
+fTrain = 'original_data/Train'
+fTest = 'original_data/Test'
 c = Current(fTrain +".csv", 4)
 t = Current(fTest +".csv", 4)
 # plot
@@ -28,13 +28,13 @@ plt.tick_params(axis='both', which='major', labelsize=22)
 plt.tick_params(axis='both', which='minor', labelsize=0)
 
 # ------------------- Fig 6.c --------------------------- 
-c.plotFamily(c_list = c_list, color = '#1496BB', shape = 'o')
-t.plotFamily(c_list = t_list, color = '#C02F1D', shape = '^')
-plot(dmm, x_list, t_list + c_list, TYPE = 'f', LOG = False, color = '#093145')
-plt.ylim([-50,350])
-plt.xlim([-0.1,0.4])
-# y ticker
-ax.yaxis.set_minor_locator(yminorLocator) # need to be commented out for log plot
+# c.plotFamily(c_list = c_list, color = '#1496BB', shape = 'o')
+# t.plotFamily(c_list = t_list, color = '#C02F1D', shape = '^')
+# plot(dmm, x_list, t_list + c_list, TYPE = 'f', LOG = False, color = '#093145')
+# plt.ylim([-50,350])
+# plt.xlim([-0.1,0.4])
+# # y ticker
+# ax.yaxis.set_minor_locator(yminorLocator) # need to be commented out for log plot
 # ------------------------------------------------------- 
 
 # ------------------- Fig 6.d --------------------------- 
@@ -66,11 +66,11 @@ ax.yaxis.set_minor_locator(yminorLocator) # need to be commented out for log plo
 # ------------------------------------------------------- 
 
 # ------------------- Fig 6.d --------------------------- 
-# c.plotTransfer(c_list = c_list, color = '#1496BB', shape = 'o')
-# t.plotTransfer(c_list = t_list, color = '#C02F1D', shape = '^')
-# plot(dmm, x_list, t_list + c_list, TYPE = 't', LOG = True, color = '#093145')
-# plt.ylim([1e-4,1e3])
-# plt.xlim([-0.1,0.4])
+c.plotTransfer(c_list = c_list, color = '#1496BB', shape = 'o')
+t.plotTransfer(c_list = t_list, color = '#C02F1D', shape = '^')
+plot(dmm, x_list, t_list + c_list, TYPE = 't', LOG = True, color = '#093145')
+plt.ylim([1e-4,1e3])
+plt.xlim([-0.1,0.4])
 # ------------------------------------------------------- 
 
 # x ticker

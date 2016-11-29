@@ -227,8 +227,8 @@ let main samples sampleTests dir=
   done;;
 
 
-let filename = "data/p-Thin_TFET_train" (* training file dir *) 
-let fileTest = "data/p-Thin_TFET_test" (* testing file dir *) 
+let filename = "data/Thin_TFET_train" (* training file dir *) 
+let fileTest = "data/Thin_TFET_test" (* testing file dir *) 
 
 let () = printf "Input file is: %s\n" filename
 (* ([|Vds|], [|Vtg|], [|Id|]) *)
