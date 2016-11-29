@@ -84,8 +84,6 @@ let backprop2 lyrs (x1_0, x2_0) t =
   	  let y1 = lyr.actv_f1 (gemv lyr.weight1 x1 lyr.bias1) in
       let y2 = lyr.actv_f2 (xpy (ax lyr.iweight y1) (gemv lyr.weight2 x2 lyr.bias2)) in
       let err = error_st' (xy y1 y2) t in
-      (* add log err *)
-      (* let logerr = error_log' (xy y1 y2) t in *)
       let delta2 = gemv_t (lyr.actv_f2' y2) (xy y1 err) in
       let delta1 = gemv_t (lyr.actv_f1' y1) (xpy (xy y2 err) (gemv_t lyr.iweight delta2)) in
       (y1, delta1, delta2, [])
