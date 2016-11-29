@@ -1,5 +1,5 @@
 (** feed forward neutral network for device compact modeling
-    Mingda Li 
+    Mingda Li (Nov. 29, 2016)
     Inspired by the 2015 Akinori ABE *)
 
 open Format
@@ -19,12 +19,12 @@ let error_st' = Array.map2 (fun yi ti -> yi -. ti)
 (** A layer in a multilayer neural network *)
 type layer =
   {
-  	(* source-drain layer (i.e. tanh network) *)
+    (* source-drain layer (i.e. tanh network) *)
     actv_f1 : float array -> float array; (** an activation function *)
     actv_f1' : float array -> float array array; (** the derivative of [actv_f]*)
     weight1 : float array array; (** a weight matrix *)
-    bias1 : float array; (** a bias vector *)
-	  (* gating layer (i.e. sigmoid network) *)
+    bias1 : float array; (** a bias vector *) 
+    (* gating layer (i.e. sigmoid network) *)
     actv_f2 : float array -> float array; (** an activation function *)
     actv_f2' : float array -> float array array; (** the derivative of [actv_f]*)
     weight2 : float array array; (** a weight matrix *)
@@ -160,7 +160,7 @@ let make_layer actv_f1 actv_f1' actv_f2 actv_f2' dim1 updim1 dim2 updim2 rlow ru
     weight1 = Array.init_matrix updim1 dim1 (fun _ _ -> rand ());
     (* bias1 = Array.init updim1 (fun _ -> rand ()); *)
     bias1 = Array.init updim1 (fun _ -> 0.); (* no bias *)
-  	(* gating layer *)
+    (* gating layer *)
     actv_f2; actv_f2';
     weight2 = Array.init_matrix updim2 dim2 (fun _ _ -> rand ());
     bias2 = Array.init updim2 (fun _ -> rand ());
