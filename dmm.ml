@@ -55,27 +55,6 @@ let forwardprop lyrs x0_pair =
 
 (** Error backpropagation *)
 (* val backprop : layer list -> float array * float array -> float array -> 
-   (float array * float array) list *)
-let backprop1 lyrs (x1_0, x2_0) t =
-  let rec calc_delta (x1, x2) = function
-    | [] -> failwith "empty neural network"
-    | [lyr] -> (* output layer *)
-      let y1 = lyr.actv_f1 (gemv lyr.weight1 x1 lyr.bias1) in
-      let y2 = lyr.actv_f2 (xpy (ax lyr.iweight y1) (gemv lyr.weight2 x2 lyr.bias2)) in
-      let err = error_st' (xy y1 y2) t in
-      let delta1 = gemv_t (lyr.actv_f1' y1) (xy y2 err) in
-      (delta1, [])
-    | lyr :: ((uplyr :: _) as lyrs') -> (* hidden layer *)
-      let y1 = lyr.actv_f1 (gemv lyr.weight1 x1 lyr.bias1) in
-      let y2 = lyr.actv_f2 (xpy (ax lyr.iweight y1) (gemv lyr.weight2 x2 lyr.bias2)) in
-      let (updelta1, tl) = calc_delta (y1, y2) lyrs' in
-      let delta1 = gemv_t (lyr.actv_f1' y1) (gemv_t uplyr.weight1 updelta1) in
-      (delta1, (y1, updelta1) :: tl)
-  in
-  let (delta1_0, tl) = calc_delta (x1_0, x2_0) lyrs in
-  (x1_0, delta1_0) :: tl
-
-(* val backprop : layer list -> float array * float array -> float array -> 
    (float array * float array) * (float array * float array * float array * float array * float array) list *)
 let backprop2 lyrs (x1_0, x2_0) t = 
   let rec calc_delta (x1, x2) = function
@@ -109,21 +88,16 @@ let train2 ~eta ~m ~g lyrs (x1_0, x2_0) t =
        let dw1 = ger updelta1 x1 in
        let dw2 = ger updelta2 x2 in
        let diw = ger updelta2 upy1 in
-       (* let db1 = updelta1 in *) (* no bias *)
+       (* let db1 = updelta1 in *) (* no bias in tanh net*)
        let db2 = updelta2 in
    	   Array.iter4 (agxpypbz (~-. eta) (~-. m) g) lyr.gain_w1 dw1 lyr.weight1 lyr.weight_c1;
-   	   (* printf "-->> Flag: %s \n" "6"; *)
    	   Array.iter4 (agxpypbz (~-. eta) (~-. m) g) lyr.gain_w2 dw2 lyr.weight2 lyr.weight_c2;
-   	   (* printf "-->> Flag: %s \n" "7"; *)
    	   Array.iter4 (agxpypbz (~-. eta) (~-. m) g) lyr.gain_iw diw lyr.iweight lyr.iweight_c;
-   	   (* printf "-->> Flag: %s \n" "5"; *)
-   	   (* agxpypbz (~-.eta) (~-.m) g lyr.gain_b1 db1 lyr.bias1 lyr.bias_c1; *) (* no bias *)
-       agxpypbz (~-.eta) (~-.m) g lyr.gain_b2 db2 lyr.bias2 lyr.bias_c2;
+   	   (* agxpypbz (~-.eta) (~-.m) g lyr.gain_b1 db1 lyr.bias1 lyr.bias_c1; *) (* no bias in tanh net*)
+           agxpypbz (~-.eta) (~-.m) g lyr.gain_b2 db2 lyr.bias2 lyr.bias_c2;
   	   copy_mat dw1 lyr.weight_c1; copy_mat dw2 lyr.weight_c2; copy_mat diw lyr.iweight_c; 
-       (* copy_vec db1 lyr.bias_c1;  *) (* no bias *)
-       copy_vec db2 lyr.bias_c2;
-       (* printf "-->> Flag: %s \n" "4"; *)
-	) res lyrs
+           (* copy_vec db1 lyr.bias_c1;  *) (* no bias in tanh net *)
+           copy_vec db2 lyr.bias_c2;) res lyrs
 
 
 (* ================================================================= *
