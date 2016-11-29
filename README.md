@@ -10,4 +10,4 @@ ocamlopt str.cmxa util.ml inout.ml dmm.ml -o nfit
 rm *.cmi *.o *.cmx
 ./nfit
 ```
-- **ploting**: The python source codes in the *plot* directory are used to produce **Fig 6 c-f** in the paper. The main routine for ploting is in "pinn.py". The *original_data* directory contains the original data without pre-processing (i.e. shift and scale).
+- **Ploting**: The python source codes in the *plot* directory are used to produce **Fig 6 c-f** in the paper. The main routine for ploting is in "pinn.py". The *original_data* directory contains the original data without pre-processing (i.e. shift and scale).
