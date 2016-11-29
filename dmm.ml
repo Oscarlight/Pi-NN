@@ -94,8 +94,7 @@ let backprop2 lyrs (x1_0, x2_0) t =
       let y2 = lyr.actv_f2 (xpy (ax lyr.iweight y1) (gemv lyr.weight2 x2 lyr.bias2)) in   
 	  let (upy1, updelta1, updelta2, tl) = calc_delta (y1, y2) lyrs' in
 	  let delta2 = gemv_t (lyr.actv_f2' y2) (gemv_t uplyr.weight2 updelta2) in
-	  let delta1 = gemv_t (lyr.actv_f1' y1) 
-	  					  (xpy (gemv_t uplyr.weight1 updelta1) (gemv_t lyr.iweight delta2)) in
+	  let delta1 = gemv_t (lyr.actv_f1' y1) (xpy (gemv_t uplyr.weight1 updelta1) (gemv_t lyr.iweight delta2)) in
 	  (y1, delta1, delta2, (y1, updelta1, y2, updelta2, upy1) :: tl)
 	in
 	let (y1_0, delta1_0, delta2_0, tl) = calc_delta (x1_0, x2_0) lyrs in
