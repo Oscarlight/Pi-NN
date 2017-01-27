@@ -1,6 +1,6 @@
 # Pi-NN
 
-Please refer to the paper "Physics-Inspired Neural Networks (Pi-NN) for Efficient Device Compact Modelling" for the details of the model. (Link will be included when available)
+Please refer to the paper "Physics-Inspired Neural Networks (Pi-NN) for Efficient Device Compact Modelling" for the details of the model. (Link to the paper: http://ieeexplore.ieee.org/document/7778193/)
 
 ## How to use:
 - **Training**: dmm.ml, inout.ml, and util.ml are the source codes for traning Pi-NN written in (take a deep breath) OCaml. The main routine is in "dmm.ml". It will read the training/testing data from the *data* directory and output the trained model and log to the *model* directory. The executable nfit can be compile by:
