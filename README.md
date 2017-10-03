@@ -1,6 +1,6 @@
 # Pi-NN
 ## Note
-Please check https://github.com/Oscarlight/PiNN_Caffe2 for a easy-to-use device compact modeling platform based on Caffe2.
+The algorithm has been upgraded since then. Please check https://github.com/Oscarlight/PiNN_Caffe2 for a easy-to-use device compact modeling platform based on Caffe2. I kept this repo since it reflects the works done in the original paper. 
 
 ## Reference
 Please refer to the paper "Physics-Inspired Neural Networks (Pi-NN) for Efficient Device Compact Modelling" for the details of the model. (Link to the paper: http://ieeexplore.ieee.org/document/7778193/)
